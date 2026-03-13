@@ -94,7 +94,7 @@ Unit N - Topic Name/
 
 ---
 
-## 👨‍💻 About
+## About
 
 This entire curriculum — all lesson plans, daily notes, practice banks, reference guides, assessments, and interactive hyperbooks — was designed and built by **Zach McCoy**.
 
