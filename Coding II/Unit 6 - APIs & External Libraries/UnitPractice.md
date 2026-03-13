@@ -1,17 +1,19 @@
 # Unit Practice Bank
 
-1. **Beginner:** Problem 1
-2. **Beginner:** Problem 2
-3. **Beginner:** Problem 3
-4. **Beginner:** Problem 4
-5. **Beginner:** Problem 5
-6. **Intermediate:** Problem 6
-7. **Intermediate:** Problem 7
-8. **Intermediate:** Problem 8
-9. **Intermediate:** Problem 9
-10. **Intermediate:** Problem 10
-11. **Challenge:** Problem 11
-12. **Challenge:** Problem 12
-13. **Challenge:** Problem 13
-14. **Challenge:** Problem 14
-15. **Challenge:** Problem 15
+1. **Beginner:** Install a package with pip.
+2. **Beginner:** Make a GET request with requests.
+3. **Beginner:** Parse JSON response.
+4. **Intermediate:** Fetch and process API data.
+5. **Intermediate:** Create line plot with matplotlib.
+6. **Intermediate:** Perform numpy operations.
+7. **Challenge:** Integrate multiple libraries.
+8. **Challenge:** Build data dashboard.
+9. **Challenge:** Handle API pagination.
+10. **Challenge:** Create visualizations from API data.
+11. **Challenge:** Perform statistical analysis with numpy.
+12. **Challenge:** Build real-time data fetcher.
+13. **Challenge:** Create interactive visualizations.
+14. **Challenge:** Integrate with multiple APIs.
+15. **Challenge:** Build complete analytics application.
+
+---

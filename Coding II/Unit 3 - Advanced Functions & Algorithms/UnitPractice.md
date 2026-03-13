@@ -1,17 +1,19 @@
 # Unit Practice Bank
 
-1. **Beginner:** Problem 1
-2. **Beginner:** Problem 2
-3. **Beginner:** Problem 3
-4. **Beginner:** Problem 4
-5. **Beginner:** Problem 5
-6. **Intermediate:** Problem 6
-7. **Intermediate:** Problem 7
-8. **Intermediate:** Problem 8
-9. **Intermediate:** Problem 9
-10. **Intermediate:** Problem 10
-11. **Challenge:** Problem 11
-12. **Challenge:** Problem 12
-13. **Challenge:** Problem 13
-14. **Challenge:** Problem 14
-15. **Challenge:** Problem 15
+1. **Beginner:** Write a lambda that adds two numbers.
+2. **Beginner:** Use map() to double all numbers in a list.
+3. **Beginner:** Use filter() to keep only even numbers.
+4. **Intermediate:** Write a list comprehension with a condition.
+5. **Intermediate:** Write a recursive factorial function.
+6. **Intermediate:** Use zip() to combine two lists into pairs.
+7. **Intermediate:** Write a dictionary comprehension.
+8. **Challenge:** Write memoized Fibonacci.
+9. **Challenge:** Write binary search recursively.
+10. **Challenge:** Create a decorator that validates function arguments.
+11. **Challenge:** Write a function composition tool.
+12. **Challenge:** Implement merge sort with Big O analysis.
+13. **Challenge:** Create a caching decorator for expensive functions.
+14. **Challenge:** Flatten a deeply nested list recursively.
+15. **Challenge:** Analyze and optimize an algorithm from O(n²) to O(n log n).
+
+---

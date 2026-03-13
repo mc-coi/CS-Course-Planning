@@ -1,17 +1,19 @@
 # Unit Practice Bank
 
-1. **Beginner:** Problem 1
-2. **Beginner:** Problem 2
-3. **Beginner:** Problem 3
-4. **Beginner:** Problem 4
-5. **Beginner:** Problem 5
-6. **Intermediate:** Problem 6
-7. **Intermediate:** Problem 7
-8. **Intermediate:** Problem 8
-9. **Intermediate:** Problem 9
-10. **Intermediate:** Problem 10
-11. **Challenge:** Problem 11
-12. **Challenge:** Problem 12
-13. **Challenge:** Problem 13
-14. **Challenge:** Problem 14
-15. **Challenge:** Problem 15
+1. **Beginner:** Open and read a file.
+2. **Beginner:** Write text to a file.
+3. **Beginner:** Read and print each line of a file.
+4. **Intermediate:** Read CSV and process rows.
+5. **Intermediate:** Write CSV from data.
+6. **Intermediate:** Handle FileNotFoundError.
+7. **Intermediate:** Parse JSON file.
+8. **Challenge:** Read CSV, filter, and write results.
+9. **Challenge:** Create custom exceptions for validation.
+10. **Challenge:** Build data cleaning pipeline.
+11. **Challenge:** Generate statistics report from file.
+12. **Challenge:** Merge multiple data files.
+13. **Challenge:** Create interactive data analyzer.
+14. **Challenge:** Build robust file processor with error handling.
+15. **Challenge:** Process and visualize data from files.
+
+---

@@ -2,26 +2,28 @@
 
 **Review Questions:**
 
-1. Q1
-2. Q2
-3. Q3
-4. Q4
-5. Q5
-6. Q6
-7. Q7
-8. Q8
-9. Q9
-10. Q10
+1. What's the complexity of linear search?
+2. What's required for binary search?
+3. Compare bubble and selection sort.
+4. What makes merge sort fast?
+5. When is insertion sort efficient?
+6. How does Python's sorted() work?
+7. Compare best and worst cases.
+8. When would you use each algorithm?
+9. How do you benchmark algorithms?
+10. What is the `key` parameter in sorted()?
 
 **Answers:**
 
-1. A1
-2. A2
-3. A3
-4. A4
-5. A5
-6. A6
-7. A7
-8. A8
-9. A9
-10. A10
+1. O(n) — checks each element
+2. Data must be sorted
+3. Both O(n²), but selection has fewer swaps
+4. Divide-and-conquer, O(n log n) complexity
+5. For small or nearly-sorted data
+6. Uses Timsort hybrid algorithm
+7. Best: O(n) on sorted data; Worst: O(n log n)
+8. Choose based on data size, pre-sortedness, memory
+9. Time actual execution on various data sizes
+10. Function returning comparison key for sorting
+
+---
