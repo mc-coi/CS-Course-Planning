@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TN CS Curriculum — Zach McCoy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:        #0a0f1e;
+      --bg2:       #0f1629;
+      --bg3:       #141d35;
+      --surface:   #1a2340;
+      --border:    rgba(255,255,255,0.08);
+      --text:      #e2e8f0;
+      --muted:     #7c8fa8;
+      --blue:      #3b82f6;
+      --blue-glow: rgba(59,130,246,0.25);
+      --green:     #10b981;
+      --green-glow:rgba(16,185,129,0.25);
+      --purple:    #8b5cf6;
+      --orange:    #f59e0b;
+      --radius:    14px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Animated background grid ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ── Glow orbs ── */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.18;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .orb-1 { width: 600px; height: 600px; background: #3b82f6; top: -200px; right: -100px; animation: float 12s ease-in-out infinite; }
+    .orb-2 { width: 500px; height: 500px; background: #8b5cf6; bottom: -150px; left: -100px; animation: float 15s ease-in-out infinite reverse; }
+    .orb-3 { width: 300px; height: 300px; background: #10b981; top: 50%; left: 40%; animation: float 10s ease-in-out infinite 3s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-30px) scale(1.05); }
+    }
+
+    /* ── Layout ── */
+    main { position: relative; z-index: 1; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 40px;
+      background: rgba(10, 15, 30, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+    }
+    .nav-logo-icon {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+    }
+    .nav-links { display: flex; align-items: center; gap: 8px; }
+    .nav-link {
+      padding: 7px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .nav-link:hover { color: #fff; background: var(--surface); }
+    .nav-cta {
+      padding: 8px 18px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+    }
+    .hero-inner { max-width: 820px; }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(59,130,246,0.12);
+      border: 1px solid rgba(59,130,246,0.3);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #93c5fd;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 28px;
+    }
+    .hero-badge::before { content: '●'; color: var(--blue); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    .hero h1 {
+      font-size: clamp(40px, 6vw, 72px);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -2px;
+      margin-bottom: 24px;
+    }
+    .hero h1 .line1 { display: block; color: #fff; }
+    .hero h1 .grad {
+      display: block;
+      background: linear-gradient(135deg, var(--blue) 0%, var(--purple) 50%, var(--green) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 18px;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 560px;
+      margin: 0 auto 40px;
+      font-weight: 400;
+    }
+    .hero-sub strong { color: var(--text); font-weight: 600; }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 24px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.22s;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--blue), #6366f1);
+      color: #fff;
+      box-shadow: 0 0 30px rgba(59,130,246,0.35);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 45px rgba(59,130,246,0.5); }
+    .btn-ghost {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { background: #1e2d4a; border-color: rgba(255,255,255,0.15); transform: translateY(-2px); }
+
+    /* ── Stats bar ── */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      padding: 32px 24px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+      flex-wrap: wrap;
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-size: 32px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+    }
+    .stat-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; margin-top: 2px; }
+
+    /* ── Section ── */
+    section { padding: 100px 24px; max-width: 1100px; margin: 0 auto; }
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--blue);
+      margin-bottom: 14px;
+    }
+    .section-tag::before { content: ''; width: 20px; height: 2px; background: var(--blue); border-radius: 2px; }
+    .section-title {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: #fff;
+      margin-bottom: 14px;
+      line-height: 1.15;
+    }
+    .section-sub {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 580px;
+      margin-bottom: 56px;
+    }
+
+    /* ── Course cards ── */
+    .courses-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    @media(max-width: 768px) { .courses-grid { grid-template-columns: 1fr; } }
+
+    .course-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+      display: flex;
+      flex-direction: column;
+    }
+    .course-card:hover {
+      transform: translateY(-6px);
+    }
+    .course-card.blue:hover { border-color: rgba(59,130,246,0.5); box-shadow: 0 20px 60px rgba(59,130,246,0.15); }
+    .course-card.green:hover { border-color: rgba(16,185,129,0.5); box-shadow: 0 20px 60px rgba(16,185,129,0.15); }
+
+    .card-banner {
+      height: 8px;
+    }
+    .card-banner.blue  { background: linear-gradient(90deg, var(--blue), #6366f1); }
+    .card-banner.green { background: linear-gradient(90deg, var(--green), #0891b2); }
+
+    .card-body { padding: 32px 32px 28px; flex: 1; display: flex; flex-direction: column; }
+    .card-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px;
+      margin-bottom: 20px;
+      flex-shrink: 0;
+    }
+    .card-icon.blue  { background: rgba(59,130,246,0.15); }
+    .card-icon.green { background: rgba(16,185,129,0.15); }
+
+    .card-body h3 {
+      font-size: 22px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .card-tagline {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+
+    .card-topics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 28px;
+    }
+    .topic-pill {
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: var(--surface);
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+    .topic-pill.blue  { background: rgba(59,130,246,0.1); color: #93c5fd; border-color: rgba(59,130,246,0.2); }
+    .topic-pill.green { background: rgba(16,185,129,0.1); color: #6ee7b7; border-color: rgba(16,185,129,0.2); }
+
+    .card-divider { height: 1px; background: var(--border); margin-bottom: 24px; }
+
+    .card-links { display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
+    .card-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 16px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.2s;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .card-link-primary.blue {
+      background: linear-gradient(135deg, rgba(59,130,246,0.2), rgba(99,102,241,0.2));
+      border: 1px solid rgba(59,130,246,0.35);
+      color: #93c5fd;
+    }
+    .card-link-primary.blue:hover { background: linear-gradient(135deg, rgba(59,130,246,0.3), rgba(99,102,241,0.3)); border-color: rgba(59,130,246,0.6); }
+    .card-link-primary.green {
+      background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(8,145,178,0.2));
+      border: 1px solid rgba(16,185,129,0.35);
+      color: #6ee7b7;
+    }
+    .card-link-primary.green:hover { background: linear-gradient(135deg, rgba(16,185,129,0.3), rgba(8,145,178,0.3)); border-color: rgba(16,185,129,0.6); }
+    .card-link-secondary {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .card-link-secondary:hover { color: var(--text); border-color: rgba(255,255,255,0.15); background: #1e2d4a; }
+    .card-link-label { display: flex; align-items: center; gap: 10px; }
+    .link-arrow { font-size: 16px; opacity: 0.7; transition: transform 0.2s; }
+    .card-link:hover .link-arrow { transform: translateX(3px); opacity: 1; }
+
+    /* ── Features section ── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    @media(max-width: 900px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media(max-width: 600px) { .features-grid { grid-template-columns: 1fr; } }
+
+    .feature-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .feature-card:hover { border-color: rgba(139,92,246,0.3); transform: translateY(-3px); }
+    .feature-icon {
+      font-size: 28px;
+      margin-bottom: 14px;
+      display: block;
+    }
+    .feature-card h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .feature-card p {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── About / Contact ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 60px;
+      align-items: center;
+    }
+    @media(max-width: 768px) { .about-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+    .about-text h2 {
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: #fff;
+      margin-bottom: 16px;
+      line-height: 1.15;
+    }
+    .about-text p {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+
+    .contact-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px;
+    }
+    .contact-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .contact-card .sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 10px;
+      transition: border-color 0.2s;
+      text-decoration: none;
+    }
+    .contact-row:hover { border-color: rgba(59,130,246,0.4); }
+    .contact-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .ci-email  { background: rgba(59,130,246,0.15); }
+    .ci-github { background: rgba(139,92,246,0.15); }
+    .contact-info { flex: 1; }
+    .contact-info .label { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; }
+    .contact-info .value { font-size: 14px; color: var(--text); font-weight: 500; font-family: 'JetBrains Mono', monospace; }
+
+    /* ── Footer ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 32px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    footer p { font-size: 13px; color: var(--muted); }
+    footer p strong { color: var(--text); }
+    .footer-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+    .f-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .f-badge.blue  { background: rgba(59,130,246,0.15); color: #93c5fd; border: 1px solid rgba(59,130,246,0.25); }
+    .f-badge.green { background: rgba(16,185,129,0.15); color: #6ee7b7; border: 1px solid rgba(16,185,129,0.25); }
+    .f-badge.purple{ background: rgba(139,92,246,0.15); color: #c4b5fd; border: 1px solid rgba(139,92,246,0.25); }
+
+    /* ── Scroll reveal ── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">🐍</div>
+    TN CS Curriculum
+  </a>
+  <div class="nav-links">
+    <a href="#courses" class="nav-link">Courses</a>
+    <a href="#features" class="nav-link">What's Included</a>
+    <a href="#about" class="nav-link">About</a>
+    <a href="https://mc-coi.github.io/Coding-1/#home" target="_blank" class="nav-cta">Open Hyperbook →</a>
+  </div>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">Tennessee State Standards Aligned</div>
+      <h1>
+        <span class="line1">High School Python</span>
+        <span class="grad">Made for Real Classrooms.</span>
+      </h1>
+      <p class="hero-sub">
+        A <strong>complete, semester-long curriculum</strong> for Coding I and Coding II — with daily lesson plans, interactive student notes, practice problems, reference guides, and assessments. Everything you need, day one.
+      </p>
+      <div class="hero-actions">
+        <a href="#courses" class="btn btn-primary">Explore the Courses ↓</a>
+        <a href="mailto:mccoy_z@hcde.org" class="btn btn-ghost">📧 Contact</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats reveal">
+    <div class="stat"><span class="stat-num">2</span><span class="stat-label">Full Courses</span></div>
+    <div class="stat"><span class="stat-num">14</span><span class="stat-label">Units</span></div>
+    <div class="stat"><span class="stat-num">108</span><span class="stat-label">Class Days</span></div>
+    <div class="stat"><span class="stat-num">166+</span><span class="stat-label">Resource Files</span></div>
+    <div class="stat"><span class="stat-num">300+</span><span class="stat-label">Practice Problems</span></div>
+  </div>
+
+  <!-- COURSES -->
+  <section id="courses">
+    <div class="reveal">
+      <div class="section-tag">Courses</div>
+      <h2 class="section-title">Everything a student needs,<br>all in one place.</h2>
+      <p class="section-sub">
+        Each course has a fully interactive hyperbook students can open in any browser — with day-by-day notes, searchable content, syntax-highlighted Python code, and built-in keyboard navigation.
+      </p>
+    </div>
+
+    <div class="courses-grid reveal">
+
+      <!-- CODING I -->
+      <div class="course-card blue">
+        <div class="card-banner blue"></div>
+        <div class="card-body">
+          <h3>Coding I</h3>
+          <p class="card-tagline">Semester 1 &nbsp;·&nbsp; Intro Python &nbsp;·&nbsp; 7 Units / 54 Days</p>
+          <div class="card-topics">
+            <span class="topic-pill blue">Intro to Python</span>
+            <span class="topic-pill blue">Variables &amp; Data Types</span>
+            <span class="topic-pill blue">Conditionals</span>
+            <span class="topic-pill blue">Loops &amp; Iteration</span>
+            <span class="topic-pill blue">Functions</span>
+            <span class="topic-pill blue">Debugging</span>
+            <span class="topic-pill blue">Project Dev</span>
+          </div>
+          <div class="card-divider"></div>
+          <div class="card-links">
+            <a href="https://mc-coi.github.io/Coding-1/#home" target="_blank" class="card-link card-link-primary blue">
+              <span class="card-link-label">📖 Open Interactive Hyperbook</span>
+              <span class="link-arrow">→</span>
+            </a>
+            <a href="https://github.com/mc-coi/CS-Course-Planning/tree/main/Coding%20I" target="_blank" class="card-link card-link-secondary">
+              <span class="card-link-label">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="opacity:0.7"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                Browse Course Files on GitHub
+              </span>
+              <span class="link-arrow">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CODING II -->
+      <div class="course-card green">
+        <div class="card-banner green"></div>
+        <div class="card-body">
+          <h3>Coding II</h3>
+          <p class="card-tagline">Semester 2 &nbsp;·&nbsp; Advanced Python &nbsp;·&nbsp; 7 Units / 54 Days</p>
+          <div class="card-topics">
+            <span class="topic-pill green">Data Structures</span>
+            <span class="topic-pill green">OOP</span>
+            <span class="topic-pill green">Algorithms</span>
+            <span class="topic-pill green">File I/O</span>
+            <span class="topic-pill green">Sorting &amp; Searching</span>
+            <span class="topic-pill green">APIs</span>
+            <span class="topic-pill green">Capstone</span>
+          </div>
+          <div class="card-divider"></div>
+          <div class="card-links">
+            <a href="https://mc-coi.github.io/Coding-2/#home" target="_blank" class="card-link card-link-primary green">
+              <span class="card-link-label">📖 Open Interactive Hyperbook</span>
+              <span class="link-arrow">→</span>
+            </a>
+            <a href="https://github.com/mc-coi/CS-Course-Planning/tree/main/Coding%20II" target="_blank" class="card-link card-link-secondary">
+              <span class="card-link-label">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="opacity:0.7"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                Browse Course Files on GitHub
+              </span>
+              <span class="link-arrow">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" style="background: linear-gradient(180deg, transparent, rgba(255,255,255,0.015), transparent); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); max-width: 100%; padding: 100px 24px;">
+    <div style="max-width:1100px; margin:0 auto;">
+      <div class="reveal">
+        <div class="section-tag">What's Included</div>
+        <h2 class="section-title">Built for students.<br>Organized for teachers.</h2>
+        <p class="section-sub">Every unit ships with the same complete set of resources — so no day is ever left without a plan.</p>
+      </div>
+      <div class="features-grid reveal">
+        <div class="feature-card">
+          <span class="feature-icon">📅</span>
+          <h4>Daily Lesson Notes</h4>
+          <p>Student-facing markdown notes for every single class day — key concepts, code examples, guided practice, and problems with hints and answers.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">📋</span>
+          <h4>Lesson Plan Docs</h4>
+          <p>60-minute structured lesson plans in both editable Word (.docx) and printable PDF format for every day of the semester.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">💪</span>
+          <h4>Practice Problem Banks</h4>
+          <p>15 problems per unit across three tiers — Beginner, Intermediate, and Challenge — so every student is appropriately stretched.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">📖</span>
+          <h4>Reference Guides</h4>
+          <p>Unit-level syntax cheatsheets, vocabulary lists, and common mistake tables students can use while coding or studying for tests.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">📝</span>
+          <h4>Unit Assessments</h4>
+          <p>10-question assessments per unit with full answer keys, plus detailed unit assessment prep Q&amp;As for student review.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">🔍</span>
+          <h4>Interactive Hyperbooks</h4>
+          <p>All content compiled into searchable single-page HTML books with syntax highlighting, keyboard nav, and reading progress tracking.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <div class="section-tag">About</div>
+        <h2>Made by a teacher,<br>for the classroom.</h2>
+        <p>This entire curriculum — every lesson plan, daily note, practice problem, reference guide, assessment, and interactive hyperbook — was designed and built by <strong style="color:#fff">Zach McCoy</strong>.</p>
+        <p>Built for real students. Tested in a real classroom. Fully aligned to Tennessee 9–12 Computer Science state standards. Everything here is open and free to use.</p>
+        <p>Questions? Want to collaborate? Reach out directly.</p>
+      </div>
+      <div class="contact-card">
+        <h3>Get in Touch</h3>
+        <p class="sub">Reach out for questions, collaboration, or feedback.</p>
+        <a href="mailto:mccoy_z@hcde.org" class="contact-row">
+          <div class="contact-icon ci-email">📧</div>
+          <div class="contact-info">
+            <div class="label">Email</div>
+            <div class="value">mccoy_z@hcde.org</div>
+          </div>
+        </a>
+        <a href="https://github.com/mc-coi" target="_blank" class="contact-row">
+          <div class="contact-icon ci-github">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#c4b5fd"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          </div>
+          <div class="contact-info">
+            <div class="label">GitHub</div>
+            <div class="value">github.com/mc-coi</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <p>Built by <strong>Zach McCoy</strong> &nbsp;·&nbsp; Tennessee CS Curriculum &nbsp;·&nbsp; <a href="mailto:mccoy_z@hcde.org" style="color:var(--muted);text-decoration:none;">mccoy_z@hcde.org</a></p>
+  <div class="footer-badges">
+    <span class="f-badge blue">Coding I</span>
+    <span class="f-badge green">Coding II</span>
+    <span class="f-badge purple">TN Standards</span>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Smooth nav link scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>
+</body>
+</html>
